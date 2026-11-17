@@ -1,0 +1,15 @@
+# Credenciais e variáveis locais
+.env
+.env.*
+
+!.env.example
+
+# Dados do banco de dados
+mysql-data/
+
+# Java e Maven
+target/
+*.class
+
+# VS Code
+.vscode/

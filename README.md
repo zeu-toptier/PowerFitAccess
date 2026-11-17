@@ -1,74 +1,87 @@
-# PowerFitAccess
-Sistema de gerenciamento e controle de acesso para academia, desenvolvido em Java com Programação Orientada a Objetos (POO), API REST e integração com banco de dados.
+# POWER FIT ACCESS
 
-# POWER FIT GYM
-### Sistema de Gerenciamento e Controle de Academia
+### Sistema de Gerenciamento e Controle de Acesso por Catraca
 
-## Sobre o Projeto
+## Sobre o projeto
 
-O **Power Fit Gym** é um projeto acadêmico desenvolvido no curso de Tecnologia em Informática para Negócios da Fatec de Mauá, como parte do Projeto de Extensão Comunitária do 3º semestre de 2026.
+O **Power Fit Access** é um projeto acadêmico desenvolvido no contexto do Projeto de Extensão Comunitária da **Fatec de Mauá**, no curso Superior de Tecnologia em Informática para Negócios.
 
-O objetivo é desenvolver um MPV (Mínimo Produto Viável) de software para gestão de uma academia fictícia, aplicando conhecimentos de Engenharia de Software, Banco de Dados, Gestão de Equipes e Linguagem de Programação.
+O sistema tem como objetivo desenvolver uma solução para o controle de acesso de alunos à academia fictícia Power Fit Gym, utilizando Java e Programação Orientada a Objetos (POO).
 
-A proposta consiste em desenvolver um sistema capaz de organizar informações e apoiar atividades administrativas e operacionais da academia, especialmente aquelas relacionadas aos alunos, planos, pagamentos e controle de acesso.
+A aplicação realizará consultas cadastrais e verificações de matrícula, plano e pagamento para determinar se o acesso à academia poderá ser autorizado ou negado.
 
-## Objetivos do Sistema
+## Objetivo
 
-- Gerenciar o cadastro e as informações dos alunos.
-- Organizar os planos e serviços oferecidos pela academia.
-- Controlar os pagamentos das mensalidades.
-- Registrar e validar o acesso dos alunos pela catraca.
-- Armazenar e consultar informações em um banco de dados.
-- Desenvolver uma aplicação funcional utilizando conceitos de programação e orientação a objetos.
+Desenvolver um MVP (Produto Mínimo Viável) funcional para simular o controle de entrada de alunos por uma catraca, aplicando conceitos de programação orientada a objetos, persistência de dados e regras de negócio.
 
-## Funcionalidades do Projeto
+## Funcionalidades previstas
 
-O sistema contempla funcionalidades relacionadas a:
+- Cadastro, consulta, atualização e exclusão de alunos.
+- Cadastro e gerenciamento de planos.
+- Criação e consulta de matrículas.
+- Registro e consulta de pagamentos.
+- Validação das condições de acesso dos alunos.
+- Simulação de liberação e bloqueio da catraca.
+- Registro de todas as tentativas de acesso.
+- Consulta ao histórico de acessos autorizados e negados.
 
-- Autenticação de usuários.
-- Cadastro e atualização de alunos.
-- Gerenciamento de planos e serviços.
-- Registro de pagamentos de mensalidades.
-- Controle de acesso pela catraca.
-- Organização e consulta das informações armazenadas.
+## Regras de acesso
 
-## Tecnologias e Ferramentas
+O sistema deverá verificar as seguintes condições antes de autorizar uma entrada:
 
-As tecnologias e ferramentas utilizadas ou previstas no desenvolvimento incluem:
+- O aluno deve estar cadastrado.
+- A matrícula deve ser válida e estar ativa.
+- O plano deve estar dentro do período de validade.
+- O pagamento deve estar regularizado.
 
-- **Java:** desenvolvimento da lógica de programação e aplicação de Programação Orientada a Objetos.
-- **HTML:** estruturação das telas da aplicação.
-- **CSS:** estilização e organização visual das interfaces.
-- **JavaScript:** implementação de interações nas telas.
-- **MySQL:** gerenciamento e armazenamento dos dados.
-- **Git:** controle de versão do código-fonte.
-- **GitHub:** armazenamento e compartilhamento do projeto.
-- **Visual Studio Code:** ambiente de desenvolvimento.
-- **Spring Boot, Spring Data JPA e Maven:** tecnologias previstas para a implementação da API e integração com o banco de dados.
-- **Postman:** ferramenta prevista para testes das requisições da API.
-- **JUnit:** ferramenta prevista para testes automatizados.
+Caso alguma condição não seja atendida, o acesso será negado e o motivo ficará registrado no histórico.
 
-## Organização e Construção do Código
+## Tecnologias utilizadas ou previstas
 
-O desenvolvimento foi planejado em etapas, considerando a divisão das responsabilidades entre os integrantes.
+| Tecnologia | Finalidade |
+|---|---|
+| Java 21 | Linguagem principal |
+| Programação Orientada a Objetos | Organização e estruturação do código |
+| JDBC | Comunicação entre Java e MySQL |
+| MySQL | Banco de dados relacional |
+| MySQL Connector/J | Driver de conexão com o banco |
+| Maven | Gerenciamento de dependências |
+| JUnit | Testes automatizados |
+| Git e GitHub | Versionamento e armazenamento do projeto |
+| Visual Studio Code | Ambiente de desenvolvimento |
+| GitHub Codespaces | Ambiente de desenvolvimento em nuvem |
 
-### Front-end
+## Estrutura de desenvolvimento
 
-Responsável pela construção das interfaces e telas do sistema, utilizando HTML, CSS e JavaScript.
+O sistema será organizado em classes e pacotes, separando as entidades, regras de negócio e operações de acesso ao banco de dados.
 
-### Back-end
+A aplicação utilizará Programação Orientada a Objetos, aplicando conceitos como abstração, encapsulamento, herança e polimorfismo quando adequados à estrutura do projeto.
 
-Responsável pela implementação das regras de negócio, processamento das informações e comunicação com o banco de dados, aplicando conceitos de Programação Orientada a Objetos.
+A persistência das informações será realizada por meio de conexão JDBC com o banco de dados MySQL.
 
-### Banco de Dados
+A aplicação será executada de forma independente, sem utilização de API REST nesta versão.
 
-Responsável pela modelagem, criação e organização das tabelas, relacionamentos e consultas necessárias para armazenar as informações da academia.
+## Banco de dados
 
-### Integração e Testes
+O banco de dados será responsável por armazenar e organizar as informações necessárias ao funcionamento do sistema.
 
-As partes do sistema deverão ser integradas para garantir a comunicação entre as interfaces, a lógica da aplicação e o banco de dados. Também serão realizados testes para verificar o funcionamento das funcionalidades.
+As principais entidades previstas são:
 
-## Integrantes do Grupo
+- Alunos;
+- Planos;
+- Matrículas;
+- Pagamentos;
+- Registros de acesso.
+
+## Testes
+
+Serão realizados testes para verificar o funcionamento das operações de cadastro, consulta, atualização, integração com o banco de dados e validação de acesso.
+
+Também serão testadas situações em que a entrada deverá ser autorizada ou negada, garantindo que todas as tentativas sejam registradas.
+
+## Equipe do projeto
+
+Integrantes em ordem alfabética:
 
 1. Caroline de Farias
 2. Diego Silva de Freitas
@@ -78,18 +91,18 @@ As partes do sistema deverão ser integradas para garantir a comunicação entre
 6. Lucas Silveira do Nascimento
 7. Sana Soares Hachem
 
-## Finalidade Acadêmica
-
-Este repositório reúne os códigos-fonte e materiais relacionados ao desenvolvimento do projeto de extensão, servindo como ambiente de organização, versionamento, acompanhamento e compartilhamento das atividades realizadas pela equipe.
-
-O projeto possui finalidade acadêmica e busca aplicar, na prática, os conhecimentos adquiridos durante o curso.
-
 ## Instituição
 
-**Fatec de Mauá**  
-Curso Superior de Tecnologia em Informática para Negócios  
-3º Semestre — 2026
+**Fatec de Mauá**
+
+Curso Superior de Tecnologia em Informática para Negócios
+
+Projeto de Extensão Comunitária — 3º Semestre de 2026.
+
+## Finalidade acadêmica
+
+Este repositório tem finalidade acadêmica e registra o desenvolvimento do Power Fit Access, demonstrando a aplicação prática de conceitos de programação, orientação a objetos, banco de dados e desenvolvimento de software.
 
 ---
 
-**Power Fit Gym — Projeto de Extensão**
+**Power Fit Access — Power Fit Gym**
