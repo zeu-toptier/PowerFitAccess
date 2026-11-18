@@ -19,8 +19,7 @@ public class Matricula {
         setNumeroMatricula(numeroMatricula);
         setAluno(aluno);
         setPlano(plano);
-        setDataInicio(dataInicio);
-        setDataFim(dataFim);
+        setPeriodo(dataInicio, dataFim);
         this.ativa = ativa;
     }
 
@@ -81,6 +80,23 @@ public class Matricula {
             throw new IllegalArgumentException("A matrícula deve possuir um plano.");
         }
         this.plano = plano;
+    }
+
+    public void setPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+        if (dataInicio == null || dataFim == null) {
+            throw new IllegalArgumentException(
+                    "As datas de início e término são obrigatórias."
+            );
+        }
+
+        if (dataFim.isBefore(dataInicio)) {
+            throw new IllegalArgumentException(
+                    "A data de término não pode ser anterior à data de início."
+            );
+        }
+
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 
     public void setDataInicio(LocalDate dataInicio) {
