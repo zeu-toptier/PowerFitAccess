@@ -5,32 +5,37 @@ import java.time.LocalDate;
 public class Matricula {
 
     private Long id;
+    private String numeroMatricula;
     private Aluno aluno;
     private Plano plano;
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private boolean ativa;
 
-    // Construtor completo
-    public Matricula(Long id, Aluno aluno, Plano plano,
-                     LocalDate dataInicio, LocalDate dataFim, boolean ativa) {
+    public Matricula(Long id, String numeroMatricula, Aluno aluno,
+                     Plano plano, LocalDate dataInicio,
+                     LocalDate dataFim, boolean ativa) {
         this.id = id;
-        this.aluno = aluno;
-        this.plano = plano;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
+        setNumeroMatricula(numeroMatricula);
+        setAluno(aluno);
+        setPlano(plano);
+        setDataInicio(dataInicio);
+        setDataFim(dataFim);
         this.ativa = ativa;
     }
 
-    // Construtor para nova matrícula
-    public Matricula(Aluno aluno, Plano plano,
+    public Matricula(String numeroMatricula, Aluno aluno, Plano plano,
                      LocalDate dataInicio, LocalDate dataFim) {
-        this(null, aluno, plano, dataInicio, dataFim, true);
+        this(null, numeroMatricula, aluno, plano,
+             dataInicio, dataFim, true);
     }
 
-    // Getters
     public Long getId() {
         return id;
+    }
+
+    public String getNumeroMatricula() {
+        return numeroMatricula;
     }
 
     public Aluno getAluno() {
@@ -53,28 +58,59 @@ public class Matricula {
         return ativa;
     }
 
-    // Setters
     public void setId(Long id) {
         this.id = id;
     }
 
+    public void setNumeroMatricula(String numeroMatricula) {
+        if (numeroMatricula == null || numeroMatricula.isBlank()) {
+            throw new IllegalArgumentException("O número de matrícula é obrigatório.");
+        }
+        this.numeroMatricula = numeroMatricula;
+    }
+
     public void setAluno(Aluno aluno) {
+        if (aluno == null) {
+            throw new IllegalArgumentException("A matrícula deve possuir um aluno.");
+        }
         this.aluno = aluno;
     }
 
     public void setPlano(Plano plano) {
+        if (plano == null) {
+            throw new IllegalArgumentException("A matrícula deve possuir um plano.");
+        }
         this.plano = plano;
     }
 
     public void setDataInicio(LocalDate dataInicio) {
+        if (dataInicio == null) {
+            throw new IllegalArgumentException("A data de início é obrigatória.");
+        }
+
+        if (this.dataFim != null && dataFimAnterior(dataInicio, this.dataFim)) {
+            throw new IllegalArgumentException("A data de início não pode ser posterior à data de término.");
+        }
+
         this.dataInicio = dataInicio;
     }
 
     public void setDataFim(LocalDate dataFim) {
+        if (dataFim == null) {
+            throw new IllegalArgumentException("A data de término é obrigatória.");
+        }
+
+        if (this.dataInicio != null && dataFim.isBefore(this.dataInicio)) {
+            throw new IllegalArgumentException("A data de término não pode ser anterior à data de início.");
+        }
+
         this.dataFim = dataFim;
     }
 
-    // Controle da situação da matrícula
+    private boolean dataFimAnterior(LocalDate inicio, LocalDate fim) {
+        return fim.isBefore(inicio);
+    }
+
     public void ativar() {
         this.ativa = true;
     }

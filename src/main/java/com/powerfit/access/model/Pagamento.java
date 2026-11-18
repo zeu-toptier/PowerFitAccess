@@ -12,26 +12,36 @@ public class Pagamento {
     private LocalDate dataVencimento;
     private StatusPagamento status;
 
-    // Construtor completo
     public Pagamento(Long id, Matricula matricula, BigDecimal valor,
                      LocalDate dataPagamento, LocalDate dataVencimento,
                      StatusPagamento status) {
         this.id = id;
-        this.matricula = matricula;
-        this.valor = valor;
+        setMatricula(matricula);
+        setValor(valor);
+        setDataVencimento(dataVencimento);
+
+        if (status == null) {
+            throw new IllegalArgumentException("O status do pagamento é obrigatório.");
+        }
+
+        if (status == StatusPagamento.PAGO && dataPagamento == null) {
+            throw new IllegalArgumentException("Um pagamento pago deve possuir data de pagamento.");
+        }
+
+        if (status != StatusPagamento.PAGO && dataPagamento != null) {
+            throw new IllegalArgumentException("Um pagamento não pago não deve possuir data de pagamento.");
+        }
+
         this.dataPagamento = dataPagamento;
-        this.dataVencimento = dataVencimento;
         this.status = status;
     }
 
-    // Construtor para novo pagamento
     public Pagamento(Matricula matricula, BigDecimal valor,
                      LocalDate dataVencimento) {
         this(null, matricula, valor, null, dataVencimento,
              StatusPagamento.PENDENTE);
     }
 
-    // Getters
     public Long getId() {
         return id;
     }
@@ -56,30 +66,41 @@ public class Pagamento {
         return status;
     }
 
-    // Setters
     public void setId(Long id) {
         this.id = id;
     }
 
     public void setMatricula(Matricula matricula) {
+        if (matricula == null) {
+            throw new IllegalArgumentException("O pagamento deve estar associado a uma matrícula.");
+        }
         this.matricula = matricula;
     }
 
     public void setValor(BigDecimal valor) {
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("O valor do pagamento deve ser maior que zero.");
+        }
         this.valor = valor;
     }
 
     public void setDataVencimento(LocalDate dataVencimento) {
+        if (dataVencimento == null) {
+            throw new IllegalArgumentException("A data de vencimento é obrigatória.");
+        }
         this.dataVencimento = dataVencimento;
     }
 
-    // Controle do pagamento
     public void registrarPagamento() {
         this.dataPagamento = LocalDate.now();
         this.status = StatusPagamento.PAGO;
     }
 
     public void marcarComoAtrasado() {
+        if (this.status == StatusPagamento.PAGO) {
+            throw new IllegalStateException("Um pagamento já realizado não pode ser marcado como atrasado.");
+        }
+
         this.status = StatusPagamento.ATRASADO;
     }
 

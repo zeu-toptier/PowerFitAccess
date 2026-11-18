@@ -12,24 +12,21 @@ public class Aluno {
     private boolean ativo;
     private LocalDate dataCadastro;
 
-    // Construtor completo
     public Aluno(Long id, String nome, String cpf, String telefone,
                  String email, boolean ativo, LocalDate dataCadastro) {
         this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
+        setNome(nome);
+        setCpf(cpf);
         this.telefone = telefone;
         this.email = email;
         this.ativo = ativo;
-        this.dataCadastro = dataCadastro;
+        setDataCadastro(dataCadastro);
     }
 
-    // Construtor para novo aluno
     public Aluno(String nome, String cpf, String telefone, String email) {
         this(null, nome, cpf, telefone, email, true, LocalDate.now());
     }
 
-    // Getters
     public Long getId() {
         return id;
     }
@@ -58,16 +55,21 @@ public class Aluno {
         return dataCadastro;
     }
 
-    // Setters
     public void setId(Long id) {
         this.id = id;
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("O nome do aluno é obrigatório.");
+        }
         this.nome = nome;
     }
 
     public void setCpf(String cpf) {
+        if (cpf == null || cpf.isBlank()) {
+            throw new IllegalArgumentException("O CPF do aluno é obrigatório.");
+        }
         this.cpf = cpf;
     }
 
@@ -80,10 +82,12 @@ public class Aluno {
     }
 
     public void setDataCadastro(LocalDate dataCadastro) {
+        if (dataCadastro == null) {
+            throw new IllegalArgumentException("A data de cadastro é obrigatória.");
+        }
         this.dataCadastro = dataCadastro;
     }
 
-    // Controle de situação do cadastro
     public void ativar() {
         this.ativo = true;
     }

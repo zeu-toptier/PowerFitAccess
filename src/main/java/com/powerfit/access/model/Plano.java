@@ -11,24 +11,21 @@ public class Plano {
     private int duracaoDias;
     private boolean ativo;
 
-    // Construtor completo
     public Plano(Long id, String nome, String descricao,
                  BigDecimal valorMensal, int duracaoDias, boolean ativo) {
         this.id = id;
-        this.nome = nome;
+        setNome(nome);
         this.descricao = descricao;
-        this.valorMensal = valorMensal;
-        this.duracaoDias = duracaoDias;
+        setValorMensal(valorMensal);
+        setDuracaoDias(duracaoDias);
         this.ativo = ativo;
     }
 
-    // Construtor para novo plano
     public Plano(String nome, String descricao,
                  BigDecimal valorMensal, int duracaoDias) {
         this(null, nome, descricao, valorMensal, duracaoDias, true);
     }
 
-    // Getters
     public Long getId() {
         return id;
     }
@@ -53,12 +50,14 @@ public class Plano {
         return ativo;
     }
 
-    // Setters
     public void setId(Long id) {
         this.id = id;
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("O nome do plano é obrigatório.");
+        }
         this.nome = nome;
     }
 
@@ -67,14 +66,19 @@ public class Plano {
     }
 
     public void setValorMensal(BigDecimal valorMensal) {
+        if (valorMensal == null || valorMensal.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("O valor do plano deve ser maior que zero.");
+        }
         this.valorMensal = valorMensal;
     }
 
     public void setDuracaoDias(int duracaoDias) {
+        if (duracaoDias <= 0) {
+            throw new IllegalArgumentException("A duração deve ser maior que zero.");
+        }
         this.duracaoDias = duracaoDias;
     }
 
-    // Controle de situação do plano
     public void ativar() {
         this.ativo = true;
     }
